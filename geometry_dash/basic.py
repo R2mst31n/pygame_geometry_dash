@@ -79,7 +79,9 @@ while done:
         pygame.mouse.get_pos()
     elif(execu==1):
         screen.fill(white)
-        draw_lvl(screen,1)
+        if (not res):
+            res=0
+        draw_lvl(screen,res)
         pygame.mouse.get_pos()
         #start game_levels
     elif(execu==2):
@@ -95,7 +97,7 @@ while done:
         ite=False
     elif (execu==4):
         #start choose lvl menu
-        execu,res=Some_windows().chose_lvl_menu(screen,pos,down_button):
+        execu,res=Some_windows().chose_lvl_menu(screen,pos,down_button)
     else:
         done=False
         #something go wrong

@@ -107,6 +107,7 @@ class Tkin():
         
 class Some_windows():
     def menu(self,screen,pos,pressed):
+        """create main menu (screen-environment;pos-list of mouses x and y;pressed-True if user pressed"""
         mx,my=pos
         screen.fill(white)
         font = pygame.font.SysFont('Calibri', 25, True, False)
@@ -124,17 +125,21 @@ class Some_windows():
         if mx>x_rect1 and mx<x_rect1+width1+30 and my>150 and my<180:
             pygame.draw.rect(screen,black,[x_rect1-3,148,width1+34,32],4)
             if pressed:
-                return 1
+                #pressed in "Select Level" button
+                return 4
         if mx>x_rect2 and mx<x_rect2+width2+30 and my>250 and my<280:
             pygame.draw.rect(screen,black,[x_rect2-3,248,width2+34,32],4)
             if pressed:
+                #pressed in "Create Level" button
                 return 2
         if mx>x_rect3 and mx<x_rect3+width3+30 and my>350 and my<380:
             pygame.draw.rect(screen,black,[x_rect3-3,348,width3+34,32],4)
             if pressed:
+                #Exit
                 return 10
         return 0
-    def chose_lvl_menu(screen,pos,pressed):
+    def chose_lvl_menu(self,screen,pos,pressed):
+        """create levels chosig menu(screen-env;pos-mouse x and y positions;pressed=True if user pressed in screen"""
         mx,my=pos
         screen.fill(white)
         font = pygame.font.SysFont('Calibri', 25, True, False)
@@ -144,21 +149,24 @@ class Some_windows():
         screen.blit(text,textpos)
         for line in range(Level().get_number()):
             text1=font.render("{} Level".format(line+1),True,red)
-            text1=pygame.tranform.scale(text1,[30,text1.get_height()])
+            text1=pygame.transform.scale(text1,[100,text1.get_height()])
             textpos1=text.get_rect()
             textpos1.centerx=size[0]//2
-            textpos1.centery=size[1]-60+40*i
+            textpos1.centery=60+40*line
             screen.blit(text1,textpos1)
         if pressed:
-            if mx>60:
-                return 1,(mx-60)//40
+            if my>47:
+                return 1,(my-47)//(14+26)
         return 4,0
 class widgets():
+    """add some widgets in active screen"""
     def __init__(self,x,y,width,height,color=green):
         self.x,self.y,self.width,self.height,self.color=x,y,width,height,color
     def button(self,screen):
-        pygame.draw.rect(screen,color,[self.x,self.y,self.width,self.height])
+        """simple button(only rect)"""
+        pygame.draw.rect(screen,self.color,[self.x,self.y,self.width,self.height])
     def check(self,screen,pos,pressed,weight=4,color=black):
+        """check if mouse location inside button and if clicked return True"""
         mx,my=pos
         if mx>self.x and mx<self.x+self.width and my>self.y and my<self.y+self.height:
             pygame.draw.rect(screen,color,[self.x-weight//2,self.y-weight//2,
@@ -167,6 +175,7 @@ class widgets():
                 return True
         return False
     def add_txt(self,screen,text,margin=8,color=black):
+        """add text into button"""
         font=pygame.font.SysFont("Calibri",25,True,False)
         txt=font.render(text,True,color)
         txtpos=txt.get_rect()
@@ -174,7 +183,8 @@ class widgets():
         txt=pygame.transform.scale(txt,(self.width-margin,self.height-margin))
         screen.blit(txt,txtpos)
     def delet(self):
-        self.width,self.height=0,0
+        """delete widget(don't work)"""
+        self.x,self.y=-3456765430,-4567890
 
 
 
