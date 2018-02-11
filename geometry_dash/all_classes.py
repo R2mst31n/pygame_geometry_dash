@@ -5,14 +5,19 @@ class Character(pygame.sprite.Sprite):
     width=0
     height=0
     mask=pygame.mask.Mask((0,0))
-    def __init__(self,width,height,x,y,filename):
+    def __init__(self,width,height,x,y,filename,color_key=black):
         super().__init__()
         self.image=pygame.image.load(filename).convert()
-        self.image.set_colorkey(black)
+        self.image.set_colorkey(color_key)
+        self.image=pygame.transform.scale(self.image,[width,height])
         self.rect=self.image.get_rect()
         self.rect.x=x
         self.rect.y=y
         self.mask=pygame.mask.from_surface(self.image)
+        print("bottom of figure",self.rect.bottom)
+        print("top of figure",self.rect.top)
+        print("x coordin is: ",self.rect.x)
+        print("y coordin is: ",self.rect.y)
     def move(self,direction,par2,v):
         if direction=="x":
             if par2=="fd":
@@ -21,9 +26,6 @@ class Character(pygame.sprite.Sprite):
         else:
             if par2=="fd": self.rect.y +=v
             else: self.rect.y -=v
-    def reset_figure(self):
-        self.rect.x=size[0]+100
-        self.rect.y=random.randrange(size[1])
 class Figure(pygame.sprite.Sprite):
     width=0
     height=0

@@ -1,5 +1,6 @@
 import pygame,random
 from all_classes import *
+from jumper import *
 #definitions
 def create_lvl(screen,leng,pos,typ):
     screen.fill(white)
@@ -81,7 +82,7 @@ while done:
         screen.fill(white)
         if (not res):
             res=0
-        draw_lvl(screen,res)
+        execu=play_game(screen,1)
         pygame.mouse.get_pos()
         #start game_levels
     elif(execu==2):
